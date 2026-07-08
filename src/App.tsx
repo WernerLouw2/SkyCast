@@ -1,10 +1,9 @@
+import { WeatherPageLayout } from './components/templates/WeatherPageLayout'
 
 function App() {
 
   return (
-    <div className="bg-blue-500 text-red-500">
-      test
-    </div>
+    <WeatherPageLayout />
   )
 }
 
