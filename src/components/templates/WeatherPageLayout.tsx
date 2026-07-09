@@ -2,10 +2,11 @@ import type { ReactNode } from "react";
 
 interface WeatherPageLayoutProps {
   header: ReactNode;
+  mainCard: ReactNode;
 }
 
 
-export function WeatherPageLayout({ header }: WeatherPageLayoutProps) {
+export function WeatherPageLayout({ header, mainCard }: WeatherPageLayoutProps) {
  
 
   return (
@@ -18,7 +19,7 @@ export function WeatherPageLayout({ header }: WeatherPageLayoutProps) {
       {/* Page content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-6 flex flex-col gap-6 min-h-screen">
         {header}
-
+        {mainCard}
         
       </div>
     </div>

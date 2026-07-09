@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, MapPin, X } from "lucide-react";
-import { CITIES } from "../../data/weatherData";
+import { CITIES } from "../../data/cities";
 
 interface SearchBarProps {
   currentCity: string;

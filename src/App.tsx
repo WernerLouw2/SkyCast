@@ -2,8 +2,15 @@ import { WeatherPageLayout } from './components/templates/WeatherPageLayout'
 import { AppHeader } from './components/organisms/AppHeader'
 import { useEffect, useState } from 'react';
 import type { Unit } from './types/weather';
+import { MainWeatherCard } from './components/organisms/MainWeatherCard';
+import { useForecast } from "./hooks/useForecast";
+
+
 
 function App() {
+  const [selectedId, setSelectedId] = useState<string>(
+    () => localStorage.getItem("skycast_day") || "today"
+  );
   const [unit, setUnit] = useState<Unit>(
     () => (localStorage.getItem("skycast_unit") as Unit) || "C"
   );
@@ -13,6 +20,34 @@ function App() {
 
   useEffect(() => { localStorage.setItem("skycast_unit", unit); }, [unit]);
   useEffect(() => { localStorage.setItem("skycast_city", city); }, [city]);
+  useEffect(() => { localStorage.setItem("skycast_day", selectedId); }, [selectedId]);
+
+  const forecast = useForecast();
+  const days = forecast.days;
+  const selectedDay = days.find((d) => d.id === selectedId) ?? days.find((d) => d.is_today) ?? days[0];
+  
+  const handleCityChange = (nextCity: string) => {
+    setCity(nextCity);
+    setSelectedId("today");
+  };
+
+  const mainCard =
+    forecast.status === "loading" ? (
+      <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(0,196,255,0.12)", background: "#0b1c31" }}>
+        Loading forecast…
+      </div>
+    ) : forecast.status === "error" ? (
+      <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(255,71,87,0.25)", background: "#0b1c31" }}>
+        <div className="font-medium" style={{ color: "#ff8892" }}>Failed to load forecast</div>
+        <div className="mt-2 text-sm" style={{ color: "#7b9db5" }}>{forecast.error}</div>
+      </div>
+    ) : selectedDay ? (
+      <MainWeatherCard day={selectedDay} unit={unit} city={city} />
+    ) : (
+      <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(0,196,255,0.12)", background: "#0b1c31" }}>
+        No data.
+      </div>
+    );
 
   return (
     <WeatherPageLayout
@@ -20,10 +55,11 @@ function App() {
         <AppHeader
           city={city}
           unit={unit}
-          onCityChange={setCity}
+          onCityChange={handleCityChange}
           onUnitChange={setUnit}
         />
       }
+      mainCard={mainCard}
     />
   )
 }
