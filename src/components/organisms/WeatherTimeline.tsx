@@ -11,21 +11,18 @@ interface WeatherTimelineProps {
 export function WeatherTimeline({ days, selectedId, unit, onSelect }: WeatherTimelineProps) {
   return (
     <div className="flex flex-col gap-3">
-      <div
-        className="grid grid-cols-7 text-[9px] tracking-widest uppercase"
-        style={{ fontFamily: "'JetBrains Mono', monospace", color: "#4e6e90" }}
-      >
+      <div className="timeline__labels grid grid-cols-7 text-[9px] tracking-widest uppercase">
         <div className="col-span-3 text-center">← 3-Day History</div>
-        <div className="text-center" style={{ color: "#00c4ff" }}>Today</div>
+        <div className="text-center text-primary">Today</div>
         <div className="col-span-3 text-center">3-Day Forecast →</div>
       </div>
 
       <div className="grid grid-cols-[3fr_1px_1fr_1px_3fr] items-center">
-        <div className="h-px" style={{ background: "linear-gradient(to right, transparent, rgba(0,196,255,0.2))" }} />
-        <div className="w-px h-3" style={{ background: "rgba(0,196,255,0.2)" }} />
+        <div className="timeline__rule--fade-right h-px" />
+        <div className="timeline__rule w-px h-3" />
         <div />
-        <div className="w-px h-3" style={{ background: "rgba(0,196,255,0.2)" }} />
-        <div className="h-px" style={{ background: "linear-gradient(to left, transparent, rgba(0,196,255,0.2))" }} />
+        <div className="timeline__rule w-px h-3" />
+        <div className="timeline__rule--fade-left h-px" />
       </div>
 
       <div className="overflow-x-auto -mx-4 px-4 pb-1">

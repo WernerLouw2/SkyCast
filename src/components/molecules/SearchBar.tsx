@@ -35,25 +35,21 @@ export function SearchBar({ currentCity, onSelect }: SearchBarProps) {
 
   return (
     <div ref={containerRef} className="relative flex-1 min-w-[180px]">
-      <div
-        className="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-all duration-200 focus-within:shadow-[0_0_0_1px_rgba(0,196,255,0.35)]"
-        style={{ background: "#091526", border: "1px solid rgba(0,196,255,0.12)" }}
-      >
-        <MapPin size={13} style={{ color: "#00c4ff" }} className="shrink-0" />
+      <div className="search-bar__field flex items-center gap-2 rounded-xl px-3 py-2.5 transition-all duration-200 focus-within:shadow-[0_0_0_1px_rgba(0,196,255,0.35)]">
+        <MapPin size={13} className="text-primary shrink-0" />
         <input
           value={query}
           onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
           placeholder={currentCity}
-          className="bg-transparent text-[#c8dff5] placeholder-[#4e6e90] outline-none flex-1"
-          style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem" }}
+          className="search-bar__input bg-transparent text-foreground placeholder:text-muted-foreground outline-none flex-1"
         />
         {query ? (
           <button onClick={() => { setQuery(""); setOpen(false); }}>
-            <X size={13} className="text-[#4e6e90] hover:text-[#c8dff5] transition-colors" />
+            <X size={13} className="text-muted hover:text-foreground transition-colors" />
           </button>
         ) : (
-          <Search size={13} className="text-[#4e6e90]" />
+          <Search size={13} className="text-muted" />
         )}
       </div>
 
@@ -64,12 +60,7 @@ export function SearchBar({ currentCity, onSelect }: SearchBarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="absolute top-full mt-2 left-0 right-0 rounded-xl overflow-hidden z-50"
-            style={{
-              background: "#091526",
-              border: "1px solid rgba(0,196,255,0.15)",
-              boxShadow: "0 16px 40px rgba(0,0,0,0.5)",
-            }}
+            className="search-bar__dropdown absolute top-full mt-2 left-0 right-0 rounded-xl overflow-hidden z-50"
           >
             {suggestions.map((city) => (
               <button
@@ -77,10 +68,8 @@ export function SearchBar({ currentCity, onSelect }: SearchBarProps) {
                 onClick={() => handleSelect(city)}
                 className="flex items-center gap-2 w-full px-4 py-3 text-left transition-colors hover:bg-[rgba(0,196,255,0.07)]"
               >
-                <MapPin size={11} style={{ color: "#00c4ff" }} className="shrink-0" />
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.8rem", color: "#c8dff5" }}>
-                  {city}
-                </span>
+                <MapPin size={11} className="text-primary shrink-0" />
+                <span className="search-bar__option">{city}</span>
               </button>
             ))}
           </motion.div>

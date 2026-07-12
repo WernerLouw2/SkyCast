@@ -35,13 +35,13 @@ function App() {
 
   const mainCard =
     forecast.status === "loading" ? (
-      <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(0,196,255,0.12)", background: "#0b1c31" }}>
+      <div className="status-panel rounded-2xl p-6">
         Loading forecast…
       </div>
     ) : forecast.status === "error" ? (
-      <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(255,71,87,0.25)", background: "#0b1c31" }}>
-        <div className="font-medium" style={{ color: "#ff8892" }}>Failed to load forecast</div>
-        <div className="mt-2 text-sm" style={{ color: "#7b9db5" }}>{forecast.error}</div>
+      <div className="status-panel status-panel--error rounded-2xl p-6">
+        <div className="font-medium text-error-soft">Failed to load forecast</div>
+        <div className="mt-2 text-sm text-soft">{forecast.error}</div>
       </div>
     ) : selectedDay ? (
       <AnimatePresence mode="wait">
@@ -56,7 +56,7 @@ function App() {
           </motion.div>
         </AnimatePresence>
     ) : (
-      <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(0,196,255,0.12)", background: "#0b1c31" }}>
+      <div className="status-panel rounded-2xl p-6">
         No data.
       </div>
     );

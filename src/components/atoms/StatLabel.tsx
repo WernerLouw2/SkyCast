@@ -1,15 +1,18 @@
-import React from "react";
+import type { ReactNode } from "react";
+
+export type StatLabelVariant = "muted" | "primary";
 
 interface StatLabelProps {
-  children: React.ReactNode;
-  color?: string;
+  children: ReactNode;
+  variant?: StatLabelVariant;
 }
 
-export function StatLabel({ children, color = "#4e6e90" }: StatLabelProps) {
+export function StatLabel({ children, variant = "muted" }: StatLabelProps) {
   return (
     <span
-      className="text-[9px] tracking-widest uppercase"
-      style={{ fontFamily: "'JetBrains Mono', monospace", color }}
+      className={`stat-label text-[9px] tracking-widest uppercase ${
+        variant === "primary" ? "stat-label--primary" : ""
+      }`}
     >
       {children}
     </span>
