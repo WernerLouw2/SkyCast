@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { DayTile } from "../../components/molecules/DayTile";
 import { type DayWeather, type Unit } from "../../types/weather";
 
@@ -9,6 +10,19 @@ interface WeatherTimelineProps {
 }
 
 export function WeatherTimeline({ days, selectedId, unit, onSelect }: WeatherTimelineProps) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || days.length === 0) return;
+
+    const target =
+      scroller.querySelector<HTMLElement>(`[data-day-id="${selectedId}"]`) ??
+      scroller.querySelector<HTMLElement>('[data-is-today="true"]');
+
+    target?.scrollIntoView({ inline: "center", block: "nearest", behavior: "instant" });
+  }, [days, selectedId]);
+
   return (
     <div className="flex flex-col gap-3">
       <div className="timeline__labels grid grid-cols-7 text-[9px] tracking-widest uppercase">
@@ -25,16 +39,22 @@ export function WeatherTimeline({ days, selectedId, unit, onSelect }: WeatherTim
         <div className="timeline__rule--fade-left h-px" />
       </div>
 
-      <div className="overflow-x-auto -mx-4 px-4 pb-1">
+      <div ref={scrollerRef} className="overflow-x-auto -mx-4 px-4 pb-1">
         <div className="grid grid-cols-7 gap-2 min-w-[560px]">
           {days.map((day) => (
-            <DayTile
+            <div
               key={day.id}
-              day={day}
-              isSelected={day.id === selectedId}
-              unit={unit}
-              onSelect={() => onSelect(day.id)}
-            />
+              data-day-id={day.id}
+              data-is-today={day.is_today ? "true" : undefined}
+              className="relative flex flex-col"
+            >
+              <DayTile
+                day={day}
+                isSelected={day.id === selectedId}
+                unit={unit}
+                onSelect={() => onSelect(day.id)}
+              />
+            </div>
           ))}
         </div>
       </div>

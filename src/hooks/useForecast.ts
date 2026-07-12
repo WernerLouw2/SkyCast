@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { DayWeather, OpenMeteoResponse } from "../types/weather";
-import { fetchForecastCapeTown } from "../api/openMeteo";
+import { fetchForecast } from "../api/openMeteo";
 import { deriveDays } from "../utils/weatherTransform";
 
 type ForecastState =
@@ -8,7 +8,7 @@ type ForecastState =
   | { status: "error"; data: null; days: DayWeather[]; error: string }
   | { status: "success"; data: OpenMeteoResponse; days: DayWeather[]; error: null };
 
-export function useForecast(): ForecastState {
+export function useForecast(city: string): ForecastState {
   const [data, setData] = useState<OpenMeteoResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<ForecastState["status"]>("loading");
@@ -18,7 +18,7 @@ export function useForecast(): ForecastState {
     setStatus("loading");
     setError(null);
 
-    fetchForecastCapeTown()
+    fetchForecast(city)
       .then((json) => {
         if (cancelled) return;
         setData(json);
@@ -34,7 +34,7 @@ export function useForecast(): ForecastState {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [city]);
 
   const days = useMemo(() => (data ? deriveDays(data) : []), [data]);
 
@@ -42,4 +42,3 @@ export function useForecast(): ForecastState {
   if (status === "error") return { status, data: null, days: [], error: error ?? "Failed to load forecast" };
   return { status: "loading", data: null, days: [], error: null };
 }
-

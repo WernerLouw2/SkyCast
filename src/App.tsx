@@ -24,7 +24,7 @@ function App() {
   useEffect(() => { localStorage.setItem("skycast_city", city); }, [city]);
   useEffect(() => { localStorage.setItem("skycast_day", selectedId); }, [selectedId]);
 
-  const forecast = useForecast();
+  const forecast = useForecast(city);
   const days = forecast.days;
   const selectedDay = days.find((d) => d.id === selectedId) ?? days.find((d) => d.is_today) ?? days[0];
   
