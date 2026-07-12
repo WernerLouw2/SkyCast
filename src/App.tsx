@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import type { Unit } from './types/weather';
 import { MainWeatherCard } from './components/organisms/MainWeatherCard';
 import { useForecast } from "./hooks/useForecast";
-
+import { AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
+import { WeatherTimeline } from './components/organisms/WeatherTimeline';
 
 
 function App() {
@@ -42,7 +44,17 @@ function App() {
         <div className="mt-2 text-sm" style={{ color: "#7b9db5" }}>{forecast.error}</div>
       </div>
     ) : selectedDay ? (
-      <MainWeatherCard day={selectedDay} unit={unit} city={city} />
+      <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedId}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <MainWeatherCard day={selectedDay} unit={unit} city={city} />
+          </motion.div>
+        </AnimatePresence>
     ) : (
       <div className="rounded-2xl p-6" style={{ border: "1px solid rgba(0,196,255,0.12)", background: "#0b1c31" }}>
         No data.
@@ -60,6 +72,13 @@ function App() {
         />
       }
       mainCard={mainCard}
+      timeline={
+        <WeatherTimeline 
+          days={days} 
+          selectedId={selectedId} 
+          unit={unit} onSelect={setSelectedId} 
+          />
+        }
     />
   )
 }
