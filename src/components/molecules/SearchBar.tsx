@@ -35,7 +35,6 @@ export function SearchBar({ currentCity, onSelect }: SearchBarProps) {
 
   return (
     <div ref={containerRef} className="relative flex-1 min-w-[180px]">
-      {/* Input row */}
       <div
         className="flex items-center gap-2 rounded-xl px-3 py-2.5 transition-all duration-200 focus-within:shadow-[0_0_0_1px_rgba(0,196,255,0.35)]"
         style={{ background: "#091526", border: "1px solid rgba(0,196,255,0.12)" }}
@@ -58,7 +57,6 @@ export function SearchBar({ currentCity, onSelect }: SearchBarProps) {
         )}
       </div>
 
-      {/* Suggestions dropdown */}
       <AnimatePresence>
         {open && suggestions.length > 0 && (
           <motion.div

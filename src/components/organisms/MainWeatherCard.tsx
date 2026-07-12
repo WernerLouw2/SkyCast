@@ -42,7 +42,6 @@ export function MainWeatherCard({ day, unit, city }: MainWeatherCardProps) {
       className={`relative rounded-2xl overflow-hidden bg-gradient-to-br ${CONDITION_BG[condition]}`}
       style={{ border: "1px solid rgba(0,196,255,0.12)" }}
     >
-      {/* Ambient radial glow */}
       <div
         className="absolute inset-0"
         style={{ background: "radial-gradient(ellipse at 20% 20%, rgba(0,196,255,0.06) 0%, transparent 60%)" }}
@@ -50,7 +49,6 @@ export function MainWeatherCard({ day, unit, city }: MainWeatherCardProps) {
 
       <div className="relative p-6 md:p-8">
 
-        {/* ── Top row ── */}
         <div className="flex items-center gap-3 mb-5 flex-wrap">
           <Badge variant={dayBadgeVariant(day)}>{badgeLabel}</Badge>
           <span
@@ -67,10 +65,8 @@ export function MainWeatherCard({ day, unit, city }: MainWeatherCardProps) {
           </span>
         </div>
 
-        {/* ── Hero section ── */}
         <div className="flex flex-col md:flex-row gap-8 items-start md:items-center mb-6">
 
-          {/* Left — icon + temperature */}
           <div className="flex items-center gap-6">
             <div style={{ filter: "drop-shadow(0 0 24px rgba(255,200,0,0.2))" }}>
               <WeatherIcon condition={condition} size={100} />
@@ -92,7 +88,6 @@ export function MainWeatherCard({ day, unit, city }: MainWeatherCardProps) {
             </div>
           </div>
 
-          {/* Right — High / Low / Precip */}
           <div className="md:ml-auto flex flex-col gap-3 shrink-0">
             <div className="grid grid-cols-2 gap-2.5">
 

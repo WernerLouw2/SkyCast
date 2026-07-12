@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import type { Condition } from "../../types/weather";
 
-// ── Sun ────────────────────────────────────────────────────────────────────
-
 function SunSVG({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" fill="none" overflow="visible">
@@ -26,8 +24,6 @@ function SunSVG({ size }: { size: number }) {
     </svg>
   );
 }
-
-// ── Partly Cloudy ──────────────────────────────────────────────────────────
 
 function PartlyCloudySVG({ size }: { size: number }) {
   const uid = useMemo(() => Math.random().toString(36).slice(2, 7), []);
@@ -59,8 +55,6 @@ function PartlyCloudySVG({ size }: { size: number }) {
   );
 }
 
-// ── Cloudy / Mist ──────────────────────────────────────────────────────────
-
 function CloudySVG({ size }: { size: number }) {
   const uid = useMemo(() => Math.random().toString(36).slice(2, 7), []);
   return (
@@ -72,14 +66,12 @@ function CloudySVG({ size }: { size: number }) {
           @keyframes clDrift-${uid} { 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
         `}</style>
       </defs>
-      {/* Back cloud */}
       <g className={`cl-${uid}-b`} opacity="0.55">
         <ellipse cx="62" cy="58" rx="26" ry="12" fill="#546E7A" />
         <circle cx="48" cy="52" r="13" fill="#546E7A" />
         <circle cx="66" cy="47" r="16" fill="#607D8B" />
         <circle cx="78" cy="54" r="11" fill="#546E7A" />
       </g>
-      {/* Front cloud */}
       <g className={`cl-${uid}-a`}>
         <ellipse cx="50" cy="68" rx="30" ry="14" fill="#78909C" />
         <circle cx="34" cy="62" r="15" fill="#78909C" />
@@ -89,8 +81,6 @@ function CloudySVG({ size }: { size: number }) {
     </svg>
   );
 }
-
-// ── Rain ───────────────────────────────────────────────────────────────────
 
 function RainSVG({ size }: { size: number }) {
   const uid = useMemo(() => Math.random().toString(36).slice(2, 7), []);
@@ -106,12 +96,10 @@ function RainSVG({ size }: { size: number }) {
           .rn-${uid}-5{animation:rn-${uid} 1.3s ease-in infinite .48s}
         `}</style>
       </defs>
-      {/* Cloud */}
       <ellipse cx="50" cy="42" rx="32" ry="14" fill="#546E7A" />
       <circle cx="34" cy="38" r="15" fill="#546E7A" />
       <circle cx="54" cy="31" r="19" fill="#607D8B" />
       <circle cx="68" cy="39" r="13" fill="#546E7A" />
-      {/* Rain drops */}
       <line className={`rn-${uid}-1`} x1="32" y1="62" x2="29" y2="74" stroke="#64B5F6" strokeWidth="2.5" strokeLinecap="round" />
       <line className={`rn-${uid}-2`} x1="46" y1="60" x2="43" y2="72" stroke="#64B5F6" strokeWidth="2.5" strokeLinecap="round" />
       <line className={`rn-${uid}-3`} x1="60" y1="62" x2="57" y2="74" stroke="#64B5F6" strokeWidth="2.5" strokeLinecap="round" />
@@ -120,8 +108,6 @@ function RainSVG({ size }: { size: number }) {
     </svg>
   );
 }
-
-// ── Thunderstorm ───────────────────────────────────────────────────────────
 
 function ThunderstormSVG({ size }: { size: number }) {
   const uid = useMemo(() => Math.random().toString(36).slice(2, 7), []);
@@ -150,8 +136,6 @@ function ThunderstormSVG({ size }: { size: number }) {
     </svg>
   );
 }
-
-// ── Public atom ────────────────────────────────────────────────────────────
 
 interface WeatherIconProps {
   condition: Condition;

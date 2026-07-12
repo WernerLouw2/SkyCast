@@ -16,7 +16,6 @@ interface DayTileProps {
 export function DayTile({ day, isSelected, unit, onSelect }: DayTileProps) {
   const condition = weatherCodeToCondition(day.weather_code);
 
-  // Display date as "Sat 5/7" from ISO string
   const dt = new Date(day.date + "T12:00:00");
   const dayName = dt.toLocaleDateString("en-US", { weekday: "short" });
   const monthDay = `${dt.getMonth() + 1}/${dt.getDate()}`;
@@ -38,7 +37,6 @@ export function DayTile({ day, isSelected, unit, onSelect }: DayTileProps) {
           : "none",
       }}
     >
-      {/* State pill */}
       {day.is_today && (
         <span
           className="absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold px-2 py-0.5 rounded-full"
@@ -61,7 +59,6 @@ export function DayTile({ day, isSelected, unit, onSelect }: DayTileProps) {
         </span>
       )}
 
-      {/* Day label */}
       <StatLabel color={isSelected ? "#00c4ff" : "#4e6e90"}>{dayName}</StatLabel>
       <span
         className="text-[9px]"
@@ -70,12 +67,10 @@ export function DayTile({ day, isSelected, unit, onSelect }: DayTileProps) {
         {monthDay}
       </span>
 
-      {/* Icon */}
       <div className="my-0.5">
         <WeatherIcon condition={condition} size={34} />
       </div>
 
-      {/* High / low (°C or °F) */}
       <span
         className="text-[13px] font-semibold"
         style={{ fontFamily: "'JetBrains Mono', monospace", color: "#ff7043" }}
@@ -89,7 +84,6 @@ export function DayTile({ day, isSelected, unit, onSelect }: DayTileProps) {
         {displayTemp(day.low_temp, unit)}°
       </span>
 
-      {/* Precipitation chance */}
       <div className="flex items-center gap-0.5 mt-0.5">
         <Droplets size={8} style={{ color: "#4e6e90" }} />
         <span
